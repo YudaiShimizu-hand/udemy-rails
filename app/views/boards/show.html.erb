@@ -1,0 +1,28 @@
+<div class="d-flex align-items-center mt-4 mb-4">
+  <div class="ml-auto boards__linkBox">
+    <%= link_to '一覧', boards_path, class: 'btn btn-outline-dark' %>
+    <%= link_to '編集', edit_board_path, class: 'btn btn-outline-dark' %>
+  </div>
+</div>
+
+<% if flash[:notice] %>
+ <div class="alert-primary"><%= flash[:notice] %></div>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    <h4><%= @board.title %></h4>
+    <% @board.tags.each do |tag| %>
+     <span class="badge badge-primary"><%= tag.name %></span>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= simple_format(@board.body) %></p>
+    <p class="text-right font-weight-bold mr-10"><%= @board.name %></p>
+  </div>
+</div>
+<div class="p-comment_list">
+  <div class="p-comment_listTitle">コメント</div>
+  <%= render @board.comments %>
+</div>
+<%= render partial: 'comments/form', locals: { comment: @comment } %>
